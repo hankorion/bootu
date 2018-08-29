@@ -4,7 +4,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-//@MapperScan("com.durain.bootu.mapper")
 public class BootuApplication {
 
 	public static void main(String[] args) {
