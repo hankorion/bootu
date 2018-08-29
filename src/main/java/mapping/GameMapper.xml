@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.durain.bootu.mapper.GameMapper">
+	<resultMap id="BaseResultMap"
+		type="com.durain.bootu.model.Game">
+		<id column="ID" jdbcType="INTEGER" property="id" />
+		<result column="TYPE" jdbcType="VARCHAR" property="type" />
+		<result column="NAME" jdbcType="VARCHAR" property="name" />
+		<result column="DEFINE" jdbcType="VARCHAR" property="define" />
+		<result column="TEMPLATE" jdbcType="VARCHAR"
+			property="template" />
+		<result column="SORT" jdbcType="VARCHAR" property="sort" />
+		<result column="GKEY" jdbcType="VARCHAR" property="gkey" />
+		<result column="SHOW_NAME" jdbcType="VARCHAR"
+			property="showName" />
+		<result column="FUN_R" jdbcType="VARCHAR" property="funR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, TYPE, NAME, DEFINE, TEMPLATE, SORT, GKEY, SHOW_NAME,
+		FUN_R
+	</sql>
+	<select id="selectByPrimaryKey"
+		parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from games
+		where ID = #{id,jdbcType=INTEGER}
+	</select>
+
+	<select id="queryAllGames" resultMap="BaseResultMap">
+		SELECT
+		id,type,name,define,template,sort,gkey,show_name,fun_r
+		FROM GAMES
+		ORDER
+		BY SORT
+		limit #{offset},#{limit}
+	</select>
+
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from games
+		where ID = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.durain.bootu.model.Game">
+		<selectKey keyProperty="id" order="AFTER"
+			resultType="java.lang.Integer">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into games (ID, TYPE, NAME,
+		DEFINE, TEMPLATE, SORT,
+		GKEY,
+		SHOW_NAME, FUN_R
+		)
+		values (#{id,jdbcType=INTEGER},
+		#{type,jdbcType=VARCHAR},
+		#{name,jdbcType=VARCHAR},
+		#{define,jdbcType=VARCHAR}, #{template,jdbcType=VARCHAR},
+		#{sort,jdbcType=VARCHAR},
+		#{gkey,jdbcType=VARCHAR},
+		#{showName,jdbcType=VARCHAR},
+		#{funR,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.durain.bootu.model.Game">
+		<selectKey keyProperty="id" order="AFTER"
+			resultType="java.lang.Integer">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+
+		insert into games
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="type != null">
+				TYPE,
+			</if>
+			<if test="name != null">
+				NAME,
+			</if>
+			<if test="define != null">
+				DEFINE,
+			</if>
+			<if test="template != null">
+				TEMPLATE,
+			</if>
+			<if test="sort != null">
+				SORT,
+			</if>
+			<if test="gkey != null">
+				GKEY,
+			</if>
+			<if test="showName != null">
+				SHOW_NAME,
+			</if>
+			<if test="funR != null">
+				FUN_R,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="define != null">
+				#{define,jdbcType=VARCHAR},
+			</if>
+			<if test="template != null">
+				#{template,jdbcType=VARCHAR},
+			</if>
+			<if test="sort != null">
+				#{sort,jdbcType=VARCHAR},
+			</if>
+			<if test="gkey != null">
+				#{gkey,jdbcType=VARCHAR},
+			</if>
+			<if test="showName != null">
+				#{showName,jdbcType=VARCHAR},
+			</if>
+			<if test="funR != null">
+				#{funR,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.durain.bootu.model.Game">
+		update games
+		<set>
+			<if test="type != null">
+				TYPE = #{type,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				NAME = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="define != null">
+				DEFINE = #{define,jdbcType=VARCHAR},
+			</if>
+			<if test="template != null">
+				TEMPLATE = #{template,jdbcType=VARCHAR},
+			</if>
+			<if test="sort != null">
+				SORT = #{sort,jdbcType=VARCHAR},
+			</if>
+			<if test="gkey != null">
+				GKEY = #{gkey,jdbcType=VARCHAR},
+			</if>
+			<if test="showName != null">
+				SHOW_NAME = #{showName,jdbcType=VARCHAR},
+			</if>
+			<if test="funR != null">
+				FUN_R = #{funR,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.durain.bootu.model.Game">
+		update games
+		set TYPE = #{type,jdbcType=VARCHAR},
+		NAME =
+		#{name,jdbcType=VARCHAR},
+		DEFINE = #{define,jdbcType=VARCHAR},
+		TEMPLATE
+		= #{template,jdbcType=VARCHAR},
+		SORT = #{sort,jdbcType=VARCHAR},
+		GKEY =
+		#{gkey,jdbcType=VARCHAR},
+		SHOW_NAME = #{showName,jdbcType=VARCHAR},
+		FUN_R = #{funR,jdbcType=VARCHAR}
+		where ID = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>
