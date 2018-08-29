@@ -25,16 +25,16 @@
 		<java.version>1.8</java.version>
 		<springBootStarterVersion>1.3.2</springBootStarterVersion>
 		<junitVersion>4.12</junitVersion>
-		<mavenSurefireVersion>2.18.1</mavenSurefireVersion>
+		<!-- <mavenSurefireVersion>2.21.0</mavenSurefireVersion> -->
 		<jacocoVersion>0.7.9</jacocoVersion>
+		<pagehelperVersion>1.2.5</pagehelperVersion>
+		<druidVersion>1.1.10</druidVersion>
+		<mybatisGeneratorVersion>1.3.2</mybatisGeneratorVersion>
 	</properties>
 
 	<dependencies>
-		<!-- 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-freemarker</artifactId>
-		</dependency> -->
+		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-freemarker</artifactId> 
+			</dependency> -->
 		<dependency>
 			<groupId>org.mybatis.spring.boot</groupId>
 			<artifactId>mybatis-spring-boot-starter</artifactId>
@@ -56,13 +56,13 @@
 		<dependency>
 			<groupId>com.github.pagehelper</groupId>
 			<artifactId>pagehelper-spring-boot-starter</artifactId>
-			<version>1.2.5</version>
+			<version>${pagehelperVersion}</version>
 		</dependency>
 		<!-- alibaba的druid数据库连接池 -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>druid-spring-boot-starter</artifactId>
-			<version>1.1.10</version>
+			<version>${druidVersion}</version>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
@@ -80,17 +80,17 @@
 			<plugin>
 				<groupId>org.mybatis.generator</groupId>
 				<artifactId>mybatis-generator-maven-plugin</artifactId>
-				<version>1.3.2</version>
+				<version>${mybatisGeneratorVersion}</version>
 				<configuration>
 					<configurationFile>${basedir}/src/main/resources/generator/generatorConfig.xml</configurationFile>
 					<overwrite>true</overwrite>
 					<verbose>true</verbose>
 				</configuration>
 			</plugin>
-						<plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>${mavenSurefireVersion}</version>
+				<!-- <version>${mavenSurefireVersion}</version> -->
 				<configuration>
 					<argLine>${surefireArgLine}</argLine>
 				</configuration>

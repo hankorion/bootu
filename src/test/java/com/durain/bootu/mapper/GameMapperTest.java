@@ -99,7 +99,7 @@ public class GameMapperTest {
 		tGame.setGkey("SYS_TEST_GKEY_2_UPDATED_Selective");
 		tGame.setShowName("SYS_TEST_GAME_SHOW_NAME_2_UPDATED_Selective");
 		tGame.setDefine("DEFINE");
-		tGame.setFunR("FUN_R");		
+		tGame.setFunR("FUN_R");
 		int records = gameMapper.updateByPrimaryKeySelective(tGame);
 		if (records > 0) {
 			testGameID = tGame.getId();
