@@ -36,6 +36,14 @@
 		limit #{offset},#{limit}
 	</select>
 
+	<select id="selectAllGames" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM GAMES
+		ORDER
+		BY SORT
+	</select>
+
 	<delete id="deleteByPrimaryKey"
 		parameterType="java.lang.Integer">
 		delete from games
