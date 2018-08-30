@@ -7,6 +7,8 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -18,6 +20,8 @@ import com.durain.bootu.model.Game;
 @SpringBootTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class GameMapperTest {
+
+	private static final Logger logger = LoggerFactory.getLogger(GameMapperTest.class);
 
 	@Autowired
 	GameMapper gameMapper;
@@ -42,12 +46,12 @@ public class GameMapperTest {
 		if (records > 0) {
 			testGameID = tGame.getId();
 		}
-		System.out.println("testA10Insert -> " + testGameID + " - " + tGame);
+		logger.info("testGameID {}" + tGame);
 	}
 
 	@Test
 	public void testA10ZDeleteByPrimaryKey() {
-		System.out.println("testD10DeleteByPrimaryKey -> " + testGameID);
+		logger.info("testD10DeleteByPrimaryKey -> {} ", testGameID);
 		if (Optional.ofNullable(testGameID).orElse(0) != 0 && testGameID > 1) {
 			gameMapper.deleteByPrimaryKey(testGameID);
 		}
@@ -66,7 +70,7 @@ public class GameMapperTest {
 		if (records > 0) {
 			testGameID = tGame.getId();
 		}
-		System.out.println("testA20InsertSelective -> " + testGameID + " - " + tGame);
+		logger.info("testA20InsertSelective {}", tGame);
 	}
 
 	@Test
@@ -85,7 +89,7 @@ public class GameMapperTest {
 		if (records > 0) {
 			testGameID = tGame.getId();
 		}
-		System.out.println("testA20MUpdateByPrimaryKey -> " + testGameID + " - " + tGame);
+		logger.info("testA20MUpdateByPrimaryKey {}", tGame);
 	}
 
 	@Test
@@ -100,25 +104,26 @@ public class GameMapperTest {
 		tGame.setShowName("SYS_TEST_GAME_SHOW_NAME_2_UPDATED_Selective");
 		tGame.setDefine("DEFINE");
 		tGame.setFunR("FUN_R");
+
 		int records = gameMapper.updateByPrimaryKeySelective(tGame);
 		if (records > 0) {
 			testGameID = tGame.getId();
 		}
-		System.out.println("testA20MUpdateByPrimaryKeySelective -> " + testGameID + " - " + tGame);
+		logger.info("testA20MUpdateByPrimaryKeySelective {}", tGame.toString());
+	}
+
+	@Test
+	public void testA20SSelectByPrimaryKey() {
+		Game gameOne = gameMapper.selectByPrimaryKey(new Integer(1));
+		System.out.println(gameOne.toString());
 	}
 
 	@Test
 	public void testA20ZDeleteByPrimaryKey() {
-		System.out.println("testA20ZDeleteByPrimaryKey -> " + testGameID);
+		logger.info("testA20ZDeleteByPrimaryKey {} ", testGameID);
 		if (Optional.ofNullable(testGameID).orElse(0) != 0 && testGameID > 1) {
 			gameMapper.deleteByPrimaryKey(testGameID);
 		}
-	}
-
-	@Test
-	public void testSelectByPrimaryKey() {
-		Game gameOne = gameMapper.selectByPrimaryKey(new Integer(1));
-		System.out.println(gameOne.toString());
 	}
 
 	@Test

@@ -1,9 +1,7 @@
 package com.durain.bootu.controller;
 
-import java.util.Locale;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,12 +16,14 @@ public class GameController {
 	@Autowired
 	private GameService gameService;
 
-	@Autowired
-	private MessageSource messageSource;
-
-	@PostMapping(value = "/game/add", produces = { "application/json;charset=UTF-8" })
+	@PostMapping(value = "/game", produces = { "application/json;charset=UTF-8" })
 	public int addGame(Game game) {
 		return gameService.addGame(game);
+	}
+
+	@DeleteMapping(value = "/game/{gameId}", produces = { "application/json;charset=UTF-8" })
+	public int deleteGame(@PathVariable("gameId") int gameId) {
+		return gameService.deleteGame(gameId);
 	}
 
 	@GetMapping(value = "/game/all/{pageNum}/{pageSize}", produces = { "application/json;charset=UTF-8" })
@@ -31,8 +31,4 @@ public class GameController {
 		return gameService.findAllGames(pageNum, pageSize);
 	}
 
-	@GetMapping("/game/welcome")
-	public String welcome(Locale locale) {
-		return messageSource.getMessage("welcome.message", null, locale);
-	}
 }

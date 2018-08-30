@@ -1,11 +1,11 @@
 package com.durain.bootu.controller;
 
-import java.util.List;
-
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -17,8 +17,11 @@ import com.durain.bootu.model.Game;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class GameControllerTest {
 
-    @Autowired
-    GameController gameController;
+	private static final Logger logger = LoggerFactory.getLogger(GameControllerTest.class);
+	private static int testGameId;
+
+	@Autowired
+	GameController gameController;
 
 	@Test
 	public void testAddGame() {
@@ -30,15 +33,21 @@ public class GameControllerTest {
 		tGame.setGkey("SYS_TEST_GKEY_1");
 		tGame.setShowName("SYS_TEST_GAME_SHOW_NAME_1");
 		int addResult = gameController.addGame(tGame);
-		System.out.println("testAddGame -> " + addResult);
+		logger.info("testAddGame [{}] ", addResult);
+		if (addResult > 0) {
+			testGameId = tGame.getId();
+		}
+	}
+
+	@Test
+	public void testDeleteGame() {
+		logger.info("testDeleteGame delete game [{}] with result [{}]", testGameId,
+				gameController.deleteGame(testGameId));
 	}
 
 	@Test
 	public void testFindAllGame() {
-		List<Game> gamesList = (List<Game>) gameController.findAllGames(0, 2);
-		for (Game game : gamesList) {
-			System.out.println(game);
-		}
+		logger.info("testFindAllGame [{}]", gameController.findAllGames(0, 2));
 	}
 
 }
