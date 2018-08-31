@@ -36,10 +36,15 @@
 			targetPackage="com.durain.bootu.mapper" targetProject="bootu">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
-		<!-- tableName是数据库中的表名或视图名 domainObjectName是实体类名 -->
+		<!-- tableName是数据库中的表名或视图名 domainObjectName是实体类名 
 		<table tableName="games" domainObjectName="Game"
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
-			selectByExampleQueryId="false"></table>
+			selectByExampleQueryId="false"></table>-->
+			
+		<table tableName="language_translation" domainObjectName="LanguageTranslation"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false"></table>			
 	</context>
 </generatorConfiguration>

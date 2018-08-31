@@ -15,10 +15,31 @@
 			property="showName" />
 		<result column="FUN_R" jdbcType="VARCHAR" property="funR" />
 	</resultMap>
+
+	<!-- <resultMap id="i18nBaseResultMap" type="com.durain.bootu.model.Game"> 
+		<id column="GID" jdbcType="INTEGER" property="id" /> <result column="TYPE" 
+		jdbcType="VARCHAR" property="type" /> <result column="NAME" jdbcType="VARCHAR" 
+		property="name" /> <result column="DEFINE" jdbcType="VARCHAR" property="define" 
+		/> <result column="TEMPLATE" jdbcType="VARCHAR" property="template" /> <result 
+		column="SORT" jdbcType="VARCHAR" property="sort" /> <result column="GKEY" 
+		jdbcType="VARCHAR" property="gkey" /> <result column="SHOW_NAME" jdbcType="VARCHAR" 
+		property="showName" /> <result column="FUN_R" jdbcType="VARCHAR" property="funR" 
+		/> <association property="languageTranslation" javaType="com.durain.bootu.model.LanguageTranslation"> 
+		<id column="GID" jdbcType="INTEGER" property="id" /> <result column="LANGUAGE_KEY" 
+		jdbcType="VARCHAR" property="languageKey" /> <result column="LANGUAGE_CODE" 
+		jdbcType="VARCHAR" property="languageCode" /> <result column="LANGUAGE_TEXT" 
+		jdbcType="VARCHAR" property="languageText" /> </association> </resultMap> -->
+
+
 	<sql id="Base_Column_List">
 		ID, TYPE, NAME, DEFINE, TEMPLATE, SORT, GKEY, SHOW_NAME,
 		FUN_R
 	</sql>
+	<!-- <sql id="I18n_Column_List"> GAMES.ID GID, GAMES.TYPE, GAMES.NAME, GAMES.DEFINE, 
+		GAMES.TEMPLATE, GAMES.SORT, GAMES.GKEY, GAMES.SHOW_NAME, GAMES.FUN_R,language_translation.id,language_translation.LANGUAGE_KEY,language_translation.LANGUAGE_CODE,language_translation.LANGUAGE_TEXT 
+		</sql> 
+	-->
+	
 	<select id="selectByPrimaryKey"
 		parameterType="java.lang.Integer" resultMap="BaseResultMap">
 		select
@@ -38,11 +59,32 @@
 
 	<select id="selectAllGames" resultMap="BaseResultMap">
 		SELECT
-		<include refid="Base_Column_List" />
+		GAMES.ID GID,
+		GAMES.TYPE,
+		ltname.LANGUAGE_TEXT AS NAME,
+		GAMES.DEFINE,
+		GAMES.TEMPLATE,
+		GAMES.SORT,
+		GAMES.GKEY,
+		ltshowname.LANGUAGE_TEXT AS SHOW_name,
+		GAMES.FUN_R
 		FROM GAMES
+		LEFT JOIN language_translation AS ltname
+		ON
+		GAMES.NAME = ltname.LANGUAGE_KEY
+		AND ltname.language_code = #{language}
+		LEFT JOIN language_translation AS ltshowname
+		ON GAMES.show_name =
+		ltshowname.LANGUAGE_KEY
+		AND ltshowname.language_code = #{language}
 		ORDER
-		BY SORT
+		BY
+		SORT
 	</select>
+	<!-- <select id="selectAllGames" resultMap="i18nBaseResultMap"> SELECT <include 
+		refid="I18n_Column_List" /> FROM GAMES, language_translation WHERE GAMES.NAME 
+		= language_translation.LANGUAGE_KEY AND language_translation.LANGUAGE_CODE 
+		= 'en_US' ORDER BY SORT </select> -->
 
 	<delete id="deleteByPrimaryKey"
 		parameterType="java.lang.Integer">

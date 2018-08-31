@@ -22,6 +22,6 @@ public interface GameMapper {
 	int updateByPrimaryKey(Game record);
 
 	List<Game> queryAllGames(@Param("offset") Integer offset, @Param("limit") Integer limit);
-	
-	List<Game> selectAllGames();
+
+	List<Game> selectAllGames(@Param("language") String language);
 }
