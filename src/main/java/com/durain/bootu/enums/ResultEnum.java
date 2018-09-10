@@ -1,22 +1,22 @@
 package com.durain.bootu.enums;
 
 public enum ResultEnum {
-    ERROR_UNKNOWN(500, "error.unkown"),
     SUCCESS(200,"success"),
-    ERROR_NOT_FOUND(404,"error.not.found"),
+    ERROR_UNKNOWN(500, "error.unkown"),
+    ERROR_BAD_REQUEST(400, "error.back.request"),
     ;
 
-    private Integer Code;
+    private Integer code;
 
     private String msg;
 
     ResultEnum(Integer code, String msg) {
-        Code = code;
+    	this.code = code;
         this.msg = msg;
     }
 
     public Integer getCode() {
-        return Code;
+        return code;
     }
 
     public String getMsg() {

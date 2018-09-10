@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Component;
-import org.springframework.validation.ObjectError;
 
 import com.durain.bootu.service.MessageByLocaleService;
 
@@ -23,14 +22,13 @@ public class MessageByLocaleServiceImpl implements MessageByLocaleService {
 	public String getMessage(String id) {
 		Locale locale = LocaleContextHolder.getLocale();
 		logger.debug("Income id [{}]", id);
-		return messageSource.getMessage(id, null, locale);
-	}
-
-	@Override
-	public String getMessage(ObjectError msgObj) {
-		Locale locale = LocaleContextHolder.getLocale();
-		logger.debug("Income message [{}]", msgObj);
-		return messageSource.getMessage(msgObj, locale);
+		String localeMessage = id;
+		try {
+			localeMessage = messageSource.getMessage(id, null, locale);
+		} catch (Exception e) {
+			logger.warn("getMessage(String id) : {} ", e);
+		}
+		return localeMessage;
 	}
 
 }
