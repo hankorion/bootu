@@ -1,10 +1,15 @@
 package com.durain.bootu.model;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class Game {
 	private Integer id;
 
 	private String type;
 
+	@NotNull
+	@Size(min = 2, message = "model.game.invalid.name.size")
 	private String name;
 
 	private String define;
@@ -40,7 +45,7 @@ public class Game {
 	}
 
 	public void setName(String name) {
-		this.name = name == null ? null : name.trim();
+		this.name = name == null ? "" : name.trim();
 	}
 
 	public String getDefine() {

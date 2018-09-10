@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.durain.bootu.BootuApplication;
 import com.durain.bootu.model.Game;
 
 @RunWith(SpringRunner.class)
@@ -27,11 +26,6 @@ public class GameMapperTest {
 	GameMapper gameMapper;
 
 	private static int testGameID;
-
-	@Test
-	public void applicationStarts() {
-		BootuApplication.main(new String[] {});
-	}
 
 	@Test
 	public void testA10Insert() {

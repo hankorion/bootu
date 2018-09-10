@@ -1,7 +1,5 @@
 package com.durain.bootu.controller;
 
-import java.util.Locale;
-
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,8 +27,7 @@ public class LanguageTranslationControllerTest {
 
 	@Test
 	public void testWelcome() {
-		Locale locale = new Locale("zh", "CN");
-		logger.info("testWelcome [{}]", ltc.welcome(locale));
+		logger.info("testWelcome [{}]", ltc.welcome());
 	}
 
 }

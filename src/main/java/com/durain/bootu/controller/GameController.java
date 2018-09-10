@@ -1,5 +1,7 @@
 package com.durain.bootu.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +19,7 @@ public class GameController {
 	private GameService gameService;
 
 	@PostMapping(value = "/game", produces = { "application/json;charset=UTF-8" })
-	public int addGame(Game game) {
+	public int addGame(@Valid Game game) {
 		return gameService.addGame(game);
 	}
 
